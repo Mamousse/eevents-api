@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run build)",
+      "Bash(git add src/controllers/auth.controller.ts src/datasources/eevent.datasource.ts .env.example RAILWAY_DEPLOYMENT.md RAILWAY_QUICK_SETUP.md)",
+      "Bash(git log -1 --format='%an %ae')",
+      "Bash(git commit -m \"$(cat <<''EOF''\nFix: Add MongoDB connection validation and error handling for Railway deployment\n\n- Add comprehensive error handling in auth.controller.ts register endpoint\n- Add MongoDB connection validation and logging in eevent.datasource.ts\n- Create .env.example for environment variable documentation\n- Add detailed Railway deployment guide (RAILWAY_DEPLOYMENT.md)\n- Add quick setup guide for Railway configuration (RAILWAY_QUICK_SETUP.md)\n\nThis fixes the 500 error on /auth/register endpoint when MONGO_URL is not configured on Railway.\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git push)",
+      "Bash(git add -A)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

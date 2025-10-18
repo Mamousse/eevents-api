@@ -10,25 +10,30 @@
 
 Allez sur [Railway.app](https://railway.app) → Projet `eevents-api-production-2e5c` → Onglet **Variables**
 
-Ajoutez ces 5 variables:
+Ajoutez ces **3 variables obligatoires** (JWT_SECRET est optionnel):
 
-### Variables à copier-coller:
+### Variables REQUISES à copier-coller:
 
 ```bash
-# 1. MongoDB URL
+# 1. MongoDB URL (REQUIS)
 MONGO_URL=mongodb+srv://mamousse15_db_user:blEcHIN6kv8QrPH7@cluster0.oglxgtd.mongodb.net/eevents?retryWrites=true&w=majority&appName=Cluster0
 
-# 2. Port
+# 2. Port (REQUIS)
 PORT=3000
 
-# 3. Host
+# 3. Host (REQUIS)
 HOST=0.0.0.0
 
-# 4. JWT Secret (changez la valeur pour plus de sécurité)
-JWT_SECRET=votre-secret-aleatoire-tres-long-et-securise-12345
-
-# 5. Environment
+# 4. Environment (REQUIS)
 NODE_ENV=production
+```
+
+### Variable OPTIONNELLE (mais recommandée pour la sécurité):
+
+```bash
+# JWT Secret (OPTIONNEL - si non défini, une valeur par défaut sera utilisée)
+# Générez une valeur aléatoire pour plus de sécurité
+JWT_SECRET=votre-secret-aleatoire-tres-long-et-securise-12345
 ```
 
 ### Comment ajouter via l'interface Railway:
@@ -37,7 +42,7 @@ NODE_ENV=production
 2. Copiez le **Name** (ex: `MONGO_URL`)
 3. Copiez la **Value** (ex: `mongodb+srv://mamousse15_db_user:...`)
 4. Cliquez sur **Add**
-5. Répétez pour les 5 variables
+5. Répétez pour les 4 variables obligatoires (+ JWT_SECRET si vous voulez)
 
 ## ✅ ÉTAPE 3: Déployer les modifications du code
 

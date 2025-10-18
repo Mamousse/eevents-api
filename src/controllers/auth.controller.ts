@@ -23,8 +23,13 @@ import {UserRepository} from '../repositories';
 import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
 
-// Secret key pour JWT - EN PRODUCTION, utilisez une variable d'environnement !
-const JWT_SECRET = 'votre-secret-key-super-securisee-changez-moi-en-production';
+// Secret key pour JWT - Utilise la variable d'environnement ou une valeur par défaut pour le développement
+const JWT_SECRET = process.env.JWT_SECRET || 'votre-secret-key-super-securisee-changez-moi-en-production';
+
+// Avertir si JWT_SECRET n'est pas configurée en production
+if (!process.env.JWT_SECRET && process.env.NODE_ENV === 'production') {
+  console.warn('⚠️ ATTENTION: JWT_SECRET n\'est pas définie en production. Utilisez une variable d\'environnement sécurisée !');
+}
 
 interface LoginRequest {
   username: string;
