@@ -35,7 +35,7 @@
     "init-admin": "node ./dist/init-admin",
     "prestart": "npm run rebuild",
     "start": "node -r source-map-support/register .",
-    "rebuild": "npm run clean && npm run build"
+    "rebuild": "npm run build"
   },
   "repository": {
     "type": "git",
