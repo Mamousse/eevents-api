@@ -35,7 +35,6 @@
     "init-admin": "node ./dist/init-admin",
     "prestart": "npm run rebuild",
     "start": "node -r source-map-support/register .",
-    "clean": "lb-clean dist *.tsbuildinfo .eslintcache",
     "rebuild": "npm run clean && npm run build"
   },
   "repository": {
