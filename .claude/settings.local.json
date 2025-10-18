@@ -6,7 +6,8 @@
       "Bash(git log -1 --format='%an %ae')",
       "Bash(git commit -m \"$(cat <<''EOF''\nFix: Add MongoDB connection validation and error handling for Railway deployment\n\n- Add comprehensive error handling in auth.controller.ts register endpoint\n- Add MongoDB connection validation and logging in eevent.datasource.ts\n- Create .env.example for environment variable documentation\n- Add detailed Railway deployment guide (RAILWAY_DEPLOYMENT.md)\n- Add quick setup guide for Railway configuration (RAILWAY_QUICK_SETUP.md)\n\nThis fixes the 500 error on /auth/register endpoint when MONGO_URL is not configured on Railway.\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
       "Bash(git push)",
-      "Bash(git add -A)"
+      "Bash(git add -A)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nUpdate: Make JWT_SECRET optional with environment variable support\n\n- JWT_SECRET now reads from process.env.JWT_SECRET\n- Falls back to default value if not set (for development)\n- Adds warning in production if JWT_SECRET is not configured\n- Update documentation to mark JWT_SECRET as optional\n\nThis allows the app to work without JWT_SECRET configured on Railway, while still recommending it for production security.\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")"
     ],
     "deny": [],
     "ask": []
