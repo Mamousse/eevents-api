@@ -86,33 +86,59 @@ export class AuthController {
     })
     credentials: RegisterRequest,
   ): Promise<User> {
-    // Vérifier si l'username existe déjà
-    const existingUser = await this.userRepository.findOne({
-      where: {username: credentials.username},
-    });
+    try {
+      console.log('🔵 Début de l\'enregistrement pour:', credentials.username);
 
-    if (existingUser) {
-      throw new HttpErrors.Conflict('Ce nom d\'utilisateur existe déjà');
+      // Vérifier si l'username existe déjà
+      const existingUser = await this.userRepository.findOne({
+        where: {username: credentials.username},
+      });
+
+      if (existingUser) {
+        console.log('⚠️ Username déjà existant:', credentials.username);
+        throw new HttpErrors.Conflict('Ce nom d\'utilisateur existe déjà');
+      }
+
+      console.log('🔵 Hashage du mot de passe...');
+      // Hasher le mot de passe
+      const hashedPassword = await bcrypt.hash(credentials.password, 10);
+
+      console.log('🔵 Création de l\'utilisateur dans la base de données...');
+      // Créer l'utilisateur avec le rôle 'user' par défaut
+      const newUser = await this.userRepository.create({
+        prenom: credentials.prenom,
+        nom: credentials.nom,
+        telephone: credentials.telephone,
+        username: credentials.username,
+        password: hashedPassword,
+        email: credentials.email,
+        role: 'user', // Rôle par défaut
+        createdAt: new Date(),
+      });
+
+      console.log('✅ Utilisateur créé avec succès:', newUser.id);
+      // Retourner l'utilisateur sans le mot de passe
+      delete (newUser as any).password;
+      return newUser;
+    } catch (error) {
+      console.error('❌ Erreur lors de l\'enregistrement:', error);
+
+      // Si c'est déjà une HttpError, la relancer
+      if (error instanceof HttpErrors.HttpError) {
+        throw error;
+      }
+
+      // Sinon, logger les détails et renvoyer une erreur générique
+      console.error('Détails de l\'erreur:', {
+        message: error.message,
+        stack: error.stack,
+        name: error.name,
+      });
+
+      throw new HttpErrors.InternalServerError(
+        `Erreur lors de l'inscription: ${error.message}`,
+      );
     }
-
-    // Hasher le mot de passe
-    const hashedPassword = await bcrypt.hash(credentials.password, 10);
-
-    // Créer l'utilisateur avec le rôle 'user' par défaut
-    const newUser = await this.userRepository.create({
-      prenom: credentials.prenom,
-      nom: credentials.nom,
-      telephone: credentials.telephone,
-      username: credentials.username,
-      password: hashedPassword,
-      email: credentials.email,
-      role: 'user', // Rôle par défaut
-      createdAt: new Date(),
-    });
-
-    // Retourner l'utilisateur sans le mot de passe
-    delete (newUser as any).password;
-    return newUser;
   }
 
   // Connexion

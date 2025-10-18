@@ -11,14 +11,25 @@ import {juggler} from '@loopback/repository';
 //   database: 'eevent',
 //   useNewUrlParser: true
 // };
+// Vérifier que MONGO_URL est définie
+if (!process.env.MONGO_URL) {
+  console.error('❌ ERREUR CRITIQUE: MONGO_URL n\'est pas définie dans les variables d\'environnement');
+  console.error('Variables d\'environnement disponibles:', Object.keys(process.env).filter(k => !k.includes('SECRET') && !k.includes('PASSWORD')));
+}
+
 const config = {
   name: 'eevent',
   connector: 'mongodb',
-  url: process.env.MONGO_URL,
-  // Optionnel si pas dans l’URL
+  url: process.env.MONGO_URL || 'mongodb://localhost:27017/eevent',
+  // Optionnel si pas dans l'URL
   // database: 'eevent',
   useUnifiedTopology: true, // utile pour éviter des warnings
 };
+
+console.log('🔵 Configuration MongoDB:', {
+  hasMongoUrl: !!process.env.MONGO_URL,
+  mongoUrlLength: process.env.MONGO_URL?.length || 0,
+});
 
 // Observe application's life cycle to disconnect the datasource when
 // application is stopped. This allows the application to be shut down
