@@ -11,24 +11,23 @@ import {juggler} from '@loopback/repository';
 //   database: 'eevent',
 //   useNewUrlParser: true
 // };
-// Vérifier que MONGO_URL est définie
+// Utiliser MONGO_URL depuis les variables d'environnement ou une valeur par défaut locale
+const mongoUrl = process.env.MONGO_URL || 'mongodb://localhost:27017/';
+
 if (!process.env.MONGO_URL) {
-  console.error('❌ ERREUR CRITIQUE: MONGO_URL n\'est pas définie dans les variables d\'environnement');
-  console.error('Variables d\'environnement disponibles:', Object.keys(process.env).filter(k => !k.includes('SECRET') && !k.includes('PASSWORD')));
+  console.warn('⚠️  MONGO_URL non définie, utilisation de la base de données locale par défaut: mongodb://localhost:27017/e-events');
 }
 
 const config = {
   name: 'eevent',
   connector: 'mongodb',
-  url: process.env.MONGO_URL || 'mongodb://localhost:27017/eevent',
-  // Optionnel si pas dans l'URL
-  // database: 'eevent',
-  useUnifiedTopology: true, // utile pour éviter des warnings
+  url: mongoUrl,
+  useUnifiedTopology: true,
+  useNewUrlParser: true,
 };
 
 console.log('🔵 Configuration MongoDB:', {
-  hasMongoUrl: !!process.env.MONGO_URL,
-  mongoUrlLength: process.env.MONGO_URL?.length || 0,
+  url: mongoUrl.replace(/\/\/.*:.*@/, '//***:***@'), // Masquer les credentials dans les logs
 });
 
 // Observe application's life cycle to disconnect the datasource when
