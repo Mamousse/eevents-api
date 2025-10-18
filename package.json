@@ -12,7 +12,7 @@
     "node": "18 || 20 || 22"
   },
   "scripts": {
-    "build": "lb-tsc",
+    "build": "tsc",
     "build:watch": "lb-tsc --watch",
     "lint": "npm run eslint && npm run prettier:check",
     "lint:fix": "npm run eslint:fix && npm run prettier:fix",
@@ -64,7 +64,7 @@
     "tslib": "^2.0.0"
   },
   "devDependencies": {
-    "@loopback/build": "^11.0.11",
+    "@loopback/build": "^11.0.12",
     "@loopback/eslint-config": "^15.0.5",
     "@loopback/testlab": "^7.0.12",
     "@types/bcryptjs": "^2.4.6",
