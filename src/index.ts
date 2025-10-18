@@ -32,6 +32,10 @@ if (require.main === module) {
       },
     },
   };
+  console.log('Environment variables:');
+  console.log('PORT:', process.env.PORT);
+  console.log('HOST:', process.env.HOST);
+  console.log('MONGO_URL:', process.env.MONGO_URL ? 'set' : 'not set');
   main(config).catch(err => {
     console.error('Cannot start the application.', err);
     process.exit(1);
