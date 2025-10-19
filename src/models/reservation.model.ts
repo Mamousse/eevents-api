@@ -80,6 +80,22 @@ export class Reservation extends Entity {
   })
   commentaire?: string;
 
+  @property({
+    type: 'string',
+  })
+  qrCode?: string;
+
+  @property({
+    type: 'boolean',
+    default: false,
+  })
+  used?: boolean;
+
+  @property({
+    type: 'date',
+  })
+  dateUtilisation?: Date;
+
   @belongsTo(() => User)
   userId: string;
 
